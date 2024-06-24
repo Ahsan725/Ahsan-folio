@@ -63,3 +63,20 @@ def hobbies():
         },
     ]
     return render_template('hobbies.html', title="Hobbies", hobbies=hobbies)
+
+@app.route('/education')
+def education():
+    # Mock data for education
+    education = [
+        {
+            'degree': 'Bachelor of Science in Computer Science',
+            'institution': 'Brooklyn College',
+            'description': 'Focused on software engineering, algorithms, and data structures. Will graduate with honors in May 2025.'
+        },
+        {
+            'degree': 'High School Diploma',
+            'institution': 'FDR High School Brooklyn',
+            'description': 'Graduated with a weighted GPA of of 105 out of 100. Salutatorian from a class of 3800 students.'
+        },
+    ]
+    return render_template('education.html', title="Education", education=education)
