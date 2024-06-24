@@ -80,3 +80,7 @@ def education():
         },
     ]
     return render_template('education.html', title="Education", education=education)
+
+@app.route('/travel')
+def travel():
+    return render_template('travel.html', title="Travel")

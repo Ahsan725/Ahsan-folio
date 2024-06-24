@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <section id="travel-map">
+        <h2>Places I've Visited</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14370.63061521166!2d-80.14550647786693!3d25.78186900921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b48e8bc080f1%3A0x7afeece4a9efe6bd!2sSouth%20Beach%2C%20Miami%20Beach%2C%20FL%2033139!5e0!3m2!1sen!2sus!4v1719236646196!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49094.90145141997!2d-75.57068381422792!3d39.72996072914795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c70f185c46af6f%3A0x8516da5077308c00!2sWilmington%2C%20DE!5e0!3m2!1sen!2sus!4v1719236730817!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <br>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24194.51864509018!2d-74.56401682181213!3d40.71108534960582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3bb115c7d91ad%3A0x7db7f07d1688ba96!2sBasking%20Ridge%2C%20Bernards%2C%20NJ%2007920!5e0!3m2!1sen!2sus!4v1719236815364!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </section>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
