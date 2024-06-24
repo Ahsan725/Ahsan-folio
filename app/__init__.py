@@ -23,7 +23,6 @@ def about():
 
 @app.route('/experiences')
 def experience():
-    # Mock data
     work_experiences = [
         {
             'title': 'Software Engineer Intern',
@@ -42,3 +41,25 @@ def experience():
         },
     ]
     return render_template('exp.html', title="Work Experiences", work_experiences=work_experiences)
+
+@app.route('/hobbies')
+def hobbies():
+    # Mock data
+    hobbies = [
+        {
+            'name': 'Working Out',
+            'description': 'I love working out and doing other outdoor activities.',
+            'image': 'img/gym.webp'
+        },
+        {
+            'name': 'Trying new Foods',
+            'description': 'One of my biggest hobbies is trying new food places and new cuisines.',
+            'image': 'img/food.webp'
+        },
+        {
+            'name': 'Computer Science Content Creation',
+            'description': 'I enjoy creating content that is helpful for computer science students on LinkedIn',
+            'image': 'img/cont.webp'
+        },
+    ]
+    return render_template('hobbies.html', title="Hobbies", hobbies=hobbies)
