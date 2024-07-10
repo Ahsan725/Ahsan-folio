@@ -1,11 +1,22 @@
 import os
-from flask import Flask, render_template, request
+import datetime
+from playhouse.shortcuts import model_to_dict
+from peewee import *
+from flask import Flask, render_template, request, jsonify
 from jinja2 import Environment, PackageLoader, select_autoescape
 from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
 
+mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+                     user=os.getenv("MYSQL_USER"),
+                     passwd=os.getenv("MYSQL_PASSWORD"),
+                     host=os.getenv("MYSQL_HOST"),
+                     port=3306
+                     )
+
+print(mydb)
 
 env = Environment(
     loader=PackageLoader('app', 'templates'),
@@ -84,3 +95,43 @@ def education():
 @app.route('/travel')
 def travel():
     return render_template('travel.html', title="Travel")
+
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = mydb
+
+mydb.connect()
+mydb.create_tables([TimelinePost], safe=True)
+
+@app.route('/api/timeline_post', methods=['POST'])
+def post_time_line_post():
+    try:
+        name = request.form['name']
+        email = request.form['email']
+        content = request.form['content']
+        
+        
+        timeline_post = TimelinePost(name=name, email=email, content=content)
+        timeline_post.save()
+
+        
+        return jsonify(model_to_dict(timeline_post)), 201
+    except KeyError as e:
+        return jsonify({"error": f"Missing field: {e.args[0]}"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    return{
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in 
+            TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
