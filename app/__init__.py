@@ -96,6 +96,10 @@ def education():
 def travel():
     return render_template('travel.html', title="Travel")
 
+@app.route('/timeline')
+def timeline():
+    return render_template('timeline.html', title="Timeline")
+
 class TimelinePost(Model):
     name = CharField()
     email = CharField()
