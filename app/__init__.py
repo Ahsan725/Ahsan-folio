@@ -7,12 +7,8 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from dotenv import load_dotenv
 
 load_dotenv()
-app = Flask(__name__)
-if os.getenv("TESTING") == "true":
-    print("Running in test mode")
-    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
-else:
-    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+app = Flask(__name__) 
+mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
                      user=os.getenv("MYSQL_USER"),
                      passwd=os.getenv("MYSQL_PASSWORD"),
                      host=os.getenv("MYSQL_HOST"),
@@ -121,13 +117,6 @@ def post_time_line_post():
         name = request.form['name']
         email = request.form['email']
         content = request.form['content']
-        
-        if not name: 
-            return jsonify({"error": "Invalid name"})
-        if not content: 
-            return jsonify({"error": "Invalid content"})
-        if not email or email.find("@") == -1:
-            return jsonify({"error": "Invalid email"})
         
         timeline_post = TimelinePost(name=name, email=email, content=content)
         timeline_post.save()
