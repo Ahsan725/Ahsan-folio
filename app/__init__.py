@@ -22,6 +22,9 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
+if os.getenv('FLASK_ENV') != 'testing':
+    mydb.connect()
+    mydb.create_tables([TimelinePost], safe=True)
 
 @app.route('/')
 def index():
@@ -108,9 +111,7 @@ class TimelinePost(Model):
     class Meta:
         database = mydb
 
-if os.getenv('FLASK_ENV') != 'testing':
-    mydb.connect()
-    mydb.create_tables([TimelinePost], safe=True)
+
 
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
