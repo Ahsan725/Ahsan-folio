@@ -7,8 +7,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from dotenv import load_dotenv
 
 load_dotenv()
-app = Flask(__name__)
-
+app = Flask(__name__) 
 mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
                      user=os.getenv("MYSQL_USER"),
                      passwd=os.getenv("MYSQL_PASSWORD"),
@@ -118,7 +117,6 @@ def post_time_line_post():
         name = request.form['name']
         email = request.form['email']
         content = request.form['content']
-        
         
         timeline_post = TimelinePost(name=name, email=email, content=content)
         timeline_post.save()
