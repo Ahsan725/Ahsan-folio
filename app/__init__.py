@@ -25,6 +25,15 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = mydb
+
 if os.getenv('FLASK_ENV') != 'testing':
     mydb.connect()
     mydb.create_tables([TimelinePost], safe=True)
@@ -104,15 +113,6 @@ def travel():
 @app.route('/timeline')
 def timeline():
     return render_template('timeline.html', title="Timeline")
-
-class TimelinePost(Model):
-    name = CharField()
-    email = CharField()
-    content = TextField()
-    created_at = DateTimeField(default=datetime.datetime.now)
-
-    class Meta:
-        database = mydb
 
 
 
