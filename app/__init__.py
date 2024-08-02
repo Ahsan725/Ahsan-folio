@@ -123,11 +123,20 @@ def post_time_line_post():
         email = request.form['email']
         content = request.form['content']
         
+        # Validate inputs
+        if not name:
+            return jsonify({"error": "Invalid name"}), 400
+        if not content:
+            return jsonify({"error": "Invalid content"}), 400
+        if '@' not in email or '.' not in email.split('@')[-1]:
+            return jsonify({"error": "Invalid email"}), 400
+        
+        # Create and save the TimelinePost
         timeline_post = TimelinePost(name=name, email=email, content=content)
         timeline_post.save()
-
         
         return jsonify(model_to_dict(timeline_post)), 201
+    
     except KeyError as e:
         return jsonify({"error": f"Missing field: {e.args[0]}"}), 400
     except Exception as e:
