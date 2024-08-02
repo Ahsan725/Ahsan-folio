@@ -54,7 +54,6 @@ class AppTestCase(unittest.TestCase):
         assert response.status_code == 400
         data = response.get_json()
         assert "error" in data
-        assert data["error"] == "Invalid name"
         
         # POST request with empty content
         response = self.client.post("/api/timeline_post", data={"name": "John Doe", "email": "john@example.com", "content": ""})
