@@ -48,44 +48,22 @@ class AppTestCase(unittest.TestCase):
         self.assertIn("timeline_posts", json_data)
         self.assertEqual(len(json_data["timeline_posts"]), 0)  # Expecting an empty list
 
+        
     def test_malformed_timeline_post(self):
-        # POST request with missing name
         response = self.client.post("/api/timeline_post", data={"email": "john@example.com", "content": "Hello world, I'm John!"})
         assert response.status_code == 400
-        data = response.get_json()
-        assert "error" in data
+        html = response.get_data(as_text=True)
+        assert "Invalid name" in html
         
         # POST request with empty content
         response = self.client.post("/api/timeline_post", data={"name": "John Doe", "email": "john@example.com", "content": ""})
         assert response.status_code == 400
-        data = response.get_json()
-        assert "error" in data
-        assert data["error"] == "Invalid content"
+        html = response.get_data(as_text=True)
+        assert "Invalid content" in html
         
         # POST request with malformed email
         response = self.client.post("/api/timeline_post", data={"name": "John Doe", "email": "not-an-email", "content": "Hello world, I'm John"})
         assert response.status_code == 400
-        data = response.get_json()
-        assert "error" in data
-        assert data["error"] == "Invalid email"
-
-        
-    # def test_malformed_timeline_post(self):
-    #     response = self.client.post("/api/timeline_post", data={"email": "john@example.com", "content": "Hello world, I'm John!"})
-    #     assert response.status_code == 400
-    #     html = response.get_data(as_text=True)
-    #     assert "Invalid name" in html
-        
-    #     # POST request with empty content
-    #     response = self.client.post("/api/timeline_post", data={"name": "John Doe", "email": "john@example.com", "content": ""})
-    #     assert response.status_code == 400
-    #     html = response.get_data(as_text=True)
-    #     assert "Invalid content" in html
-        
-    #     # POST request with malformed email
-    #     response = self.client.post("/api/timeline_post", data={"name": "John Doe", "email": "not-an-email", "content": "Hello world, I'm John"})
-    #     assert response.status_code == 400
-    #     html = response.get_data(as_text=True)
-    #     assert "Invalid email" in html
-        
+        html = response.get_data(as_text=True)
+        assert "Invalid email" in html
 
